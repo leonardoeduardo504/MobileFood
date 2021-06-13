@@ -1,0 +1,68 @@
+﻿@model WebTruckFood.Models.ScheduleMV
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Open food trucks finder</h2>
+
+@using (Html.BeginForm("Index", "Food", FormMethod.Get))
+{
+    <div class="row ">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <span class="help-block text-muted small-font FormLabel">Day:</span>
+            <div class="inputcontainer">
+                @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Name"))                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <span class="help-block text-muted small-font FormLabel">Time (23:59):</span>
+            <div class="inputcontainer">
+                @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-sm-1">
+            <br />
+            <button id="btnSelect" name="btn" value="Submit" type="submit" class="btn btn-primary btn-sm pull-left"
+                    data-toggle="tooltip" title="Consultar" style="margin-right: 5px;">
+                Consultar
+            </button>
+        </div>
+    </div>
+}
+
+    <p>
+        <h3>Open food trucks finder</h3>
+    </p>
+
+    <div>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                </tr>
+                @{
+                    foreach (var item in Model.Detail)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.optionaltext)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.location)
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+    </div>
